@@ -1,0 +1,16 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  artifacts:
+  - imageName: service/hello
+    workspace: ./../..
+    bazel:
+      target: //service/hello:hello_image.tar
+  local: {}
+deploy:
+  helm:
+    releases:
+    - name: skaffold-helm-hello
+      chartPath: ./../../deploy/boot
+      values:
+        image: service/hello
