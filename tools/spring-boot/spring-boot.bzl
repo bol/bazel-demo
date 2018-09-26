@@ -34,6 +34,30 @@ def boot_jar(name, target, include_launch_script = True, **kwargs):
         **kwargs
     )
 
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+
+def boot_image(
+        name,
+        target,
+        base = "@java_base//image",
+        stamp = True,
+        **kwargs):
+    jar_name = name + ".jar"
+
+    boot_jar(
+        name = jar_name,
+        target = target,
+        **kwargs
+    )
+
+    container_image(
+        name = name,
+        base = base,
+        cmd = ["/" + jar_name],
+        files = [jar_name],
+        stamp = stamp,
+    )
+
 spring_boot_starter_web_deps = [
     "@ch_qos_logback_logback_classic//jar",
     "@ch_qos_logback_logback_core//jar",

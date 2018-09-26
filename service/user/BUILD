@@ -1,6 +1,6 @@
 load(
     "//tools/spring-boot:spring-boot.bzl",
-    "boot_jar",
+    "boot_image",
     "spring_boot_starter_actuator_deps",
     "spring_boot_starter_test_deps",
     "spring_boot_starter_web_deps",
@@ -25,19 +25,9 @@ java_test(
            spring_boot_starter_test_deps,
 )
 
-boot_jar(
-    name = "app.jar",
+boot_image(
+    name = "app",
     target = ":library",
-)
-
-load("@io_bazel_rules_docker//container:container.bzl", "container_image")
-
-container_image(
-    name = "image",
-    base = "@java_base//image",
-    cmd = ["/app.jar"],
-    files = [":app.jar"],
-    stamp = True,
 )
 
 load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
@@ -46,57 +36,63 @@ k8s_objects(
     name = "deploy",
     objects = [
         ":deploy_database",
-        ":deploy_application",
+        ":deploy_app",
     ],
 )
 
 k8s_objects(
-    name = "deploy_application",
+    name = "deploy_app",
     objects = [
-        ":app_service",
-        ":app_deploy",
+        ":_k8s_service_app",
+        ":_k8s_deployment_app",
     ],
 )
 
 k8s_objects(
     name = "deploy_database",
     objects = [
-        ":db_pv",
-        ":db_pvc",
-        ":db_service",
-        ":db_deploy",
+        ":_k8s_persistantvolume_db",
+        ":_k8s_persistantvolumeclaim_db",
+        ":_k8s_service_db",
+        ":_k8s_deployment_db",
     ],
 )
 
 load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 
 k8s_deploy(
-    name = "app_service",
+    name = "_k8s_service_app",
+    kind = "Service",
     template = ":deployment/app-service.yaml",
 )
 
 k8s_deploy(
-    name = "app_deploy",
-    images = {"app:dev": ":image"},
+    name = "_k8s_deployment_app",
+    images = {"app:dev": ":app"},
+    kind = "Deployment",
     template = ":deployment/app-deployment.yaml",
 )
 
 k8s_deploy(
-    name = "db_service",
+    name = "_k8s_service_db",
+    kind = "Service",
     template = ":deployment/db-service.yaml",
 )
 
 k8s_deploy(
-    name = "db_deploy",
+    name = "_k8s_deployment_db",
+    kind = "Deployment",
     template = ":deployment/db-deployment.yaml",
 )
 
 k8s_deploy(
-    name = "db_pv",
+    name = "_k8s_persistantvolume_db",
+    kind = "PersistantVolume",
     template = ":deployment/db-pv.yaml",
 )
 
 k8s_deploy(
-    name = "db_pvc",
+    name = "_k8s_persistantvolumeclaim_db",
+    kind = "PersistantVolumeClaim",
     template = ":deployment/db-pvc.yaml",
 )
