@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: user
+spec:
+  selector:
+    matchLabels:
+      app: user
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user
+        tier: backend
+    spec:
+      containers:
+      - name: user-service
+        image: app:dev
+        ports:
+        - containerPort: 80

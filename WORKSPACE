@@ -41,7 +41,32 @@ container_repositories()
 
 container_pull(
     name = "java_base",
-    registry = "index.docker.io",
-    repository = "library/openjdk",
-    tag = "8u171-jre-alpine3.8",
+    digest = "sha256:b430543bea1d8326e767058bdab3a2482ea45f59d7af5c5c61334cd29ede88a1",
+    registry = "gcr.io",
+    repository = "distroless/java",
+)
+
+# This requires rules_docker to be fully instantiated before
+# it is pulled in.
+git_repository(
+    name = "io_bazel_rules_k8s",
+    commit = "c861e4ea5a0b34e17fb682f60fa78a9c85050519",
+    remote = "https://github.com/bazelbuild/rules_k8s.git",
+)
+
+load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_repositories")
+
+k8s_repositories()
+
+load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_defaults")
+
+k8s_defaults(
+    # This becomes the name of the @repository and the rule
+    # you will import in your BUILD files.
+    name = "k8s_deploy",
+    # This is the name of the cluster as it appears in:
+    #   kubectl config current-context
+    cluster = "minikube",
+    image_chroot = "localhost:5000/",
+    kind = "<unspecified>",
 )

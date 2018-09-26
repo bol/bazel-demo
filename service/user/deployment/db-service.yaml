@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: user-db
+spec:
+  ports:
+  - port: 5435
+  selector:
+    app: user-db
+  clusterIP: None
