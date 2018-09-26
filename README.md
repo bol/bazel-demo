@@ -51,6 +51,4 @@ If you want to build it yourself, clone the [repository](https://github.com/baze
 $ bazel build //ijwb:ijwb_bazel_zip --define=ij_product=intellij-ue-2018.2
 ```
 
-When that is done, you are ready to import the project. Choose the root of the repository as the WORKSPACE and generate from the BUILD file located under **service/hello/BUILD**
-
-Now go change some code and see how it is magically deployed to the cluster.
+When that is done, you are ready to import the project. Choose the root of the repository as the WORKSPACE and generate from the BUILD file located under **service/user/BUILD**
