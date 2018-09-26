@@ -52,3 +52,16 @@ $ bazel build //ijwb:ijwb_bazel_zip --define=ij_product=intellij-ue-2018.2
 ```
 
 When that is done, you are ready to import the project. Choose the root of the repository as the WORKSPACE and generate from the BUILD file located under **service/user/BUILD**
+
+#### Continuous build with iBazel
+A common element in development setups are helper tools that monitors your source code and react to changes as soon as they are saved to the filesystem.
+For bazel there is [iBazel](https://github.com/bazelbuild/bazel-watcher) which unfortunately needs to be built from source.
+With it installed you can ask it to keep an eye on the tests for the user service. It will hook into bazel and figure out which dependencies you have and re-run the tests automatically as soon as a dependent file is changed.
+```bash
+$ ibazel test //service/user:tests
+```
+
+You can even set it up to build and deploy any changes straight into your cluster.
+```bash
+$ ibazel run //service/user:deploy.apply
+```
