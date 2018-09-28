@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+management:
+  server:
+    port: 9090
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://user-db.default.svc.cluster.local:5432/userdb
+    username: user_application
+    password: password

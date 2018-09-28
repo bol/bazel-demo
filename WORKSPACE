@@ -1,11 +1,8 @@
 workspace(name = "bourne")
 
-http_archive(
-    name = "trans_maven_jar",
-    strip_prefix = "migration-tooling-master",
-    type = "zip",
-    url = "https://github.com/bazelbuild/migration-tooling/archive/master.zip",
-)
+load("//3rdparty:workspace.bzl", "maven_dependencies")
+
+maven_dependencies()
 
 http_archive(
     name = "io_bazel_rules_docker",
@@ -13,23 +10,6 @@ http_archive(
     strip_prefix = "rules_docker-0.5.1",
     urls = ["https://github.com/bazelbuild/rules_docker/archive/v0.5.1.tar.gz"],
 )
-
-load("@trans_maven_jar//transitive_maven_jar:transitive_maven_jar.bzl", "transitive_maven_jar")
-
-transitive_maven_jar(
-    name = "dependencies",
-    artifacts = [
-        "org.springframework.boot:spring-boot-loader-tools:jar:2.0.5.RELEASE",
-        "org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE",
-        "org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE",
-        "org.springframework.boot:spring-boot-starter-actuator:jar:2.0.5.RELEASE",
-    ],
-    repositories = ["http://central.maven.org/maven2/"],
-)
-
-load("@dependencies//:generate_workspace.bzl", "generated_maven_jars")
-
-generated_maven_jars()
 
 load(
     "@io_bazel_rules_docker//container:container.bzl",

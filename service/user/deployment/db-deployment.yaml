@@ -14,19 +14,24 @@ spec:
         app: user-db
     spec:
       containers:
-      - image: mysql:5.6
-        name: mysql
+      - name: postgres
+        image: postgres:10.5-alpine
         env:
-          # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
+        - name: POSTGRES_USER
+          value: user_application
+        - name: POSTGRES_PASSWORD
           value: password
+        - name: POSTGRES_DB
+          value: userdb
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
         ports:
-        - containerPort: 3306
-          name: mysql
+        - name: pgsql
+          containerPort: 5432
         volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+        - mountPath: /var/lib/postgresql/data
+          name: postgresql-persistent-storage
       volumes:
-      - name: mysql-persistent-storage
+      - name: postgresql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: postgres-pv-claim

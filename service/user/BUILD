@@ -2,26 +2,32 @@ load(
     "//tools/spring-boot:spring-boot.bzl",
     "boot_image",
     "spring_boot_starter_actuator_deps",
+    "spring_boot_starter_data_jpa_deps",
     "spring_boot_starter_test_deps",
     "spring_boot_starter_web_deps",
 )
 
 java_library(
     name = "library",
-    srcs = glob(include = ["src/**/*.java"]),
-    visibility = ["//visibility:private"],
+    srcs = glob(include = ["src/main/java/**/*.java"]),
+    resources = glob(include = ["src/main/resources/*"]),
+    runtime_deps = [
+        "@org_postgresql_postgresql//jar",
+    ],
     deps = spring_boot_starter_web_deps +
+           spring_boot_starter_data_jpa_deps +
            spring_boot_starter_actuator_deps,
 )
 
 java_test(
     name = "tests",
     size = "small",
-    srcs = ["tests/ApplicationTest.java"],
-    test_class = "test.ApplicationTest",
+    srcs = ["src/test/java/service/user/ApplicationTest.java"],
+    test_class = "service.user.ApplicationTest",
+    runtime_deps = [
+        "@com_h2database_h2//jar",
+    ],
     deps = ["library"] +
-           spring_boot_starter_web_deps +
-           spring_boot_starter_actuator_deps +
            spring_boot_starter_test_deps,
 )
 

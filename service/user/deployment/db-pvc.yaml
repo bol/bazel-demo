@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: mysql-pv-claim
+  name: postgres-pv-claim
 spec:
   storageClassName: manual
   accessModes:

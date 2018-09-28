@@ -1,0 +1,45 @@
+# This is the dependency configuration file used to generate the 3rdparty folder
+# If you make changes to it you must check out https://github.com/johnynek/bazel-deps and run
+# bazel run //:parse -- generate -r $PATH_TO_PROJECT_ROOT -s 3rdparty/workspace.bzl -d dependencies.yaml
+# where $PATH_TO_PROJECT_ROOT is the full path to your checkout of this repository.
+#
+# The last generation was performed on commit b6c2910 of bazel-deps.
+
+options:
+  languages: [ "java" ]
+  resolvers:
+  - id: "mavencentral"
+    type: "default"
+    url: https://repo.maven.apache.org/maven2/
+  - id: "springplugins"
+    type: "default"
+    url: http://repo.spring.io/plugins-release/
+  # The default resolver aether is broken
+  # See: https://github.com/johnynek/bazel-deps/issues/184
+  resolverType: "coursier"
+
+dependencies:
+  org.springframework.boot:
+    spring-boot-loader-tools:
+      lang: java
+      version: "2.0.5.RELEASE"
+    spring-boot-starter-actuator:
+      lang: java
+      version: "2.0.5.RELEASE"
+    spring-boot-starter-data-jpa:
+      lang: java
+      version: "2.0.5.RELEASE"
+    spring-boot-starter-test:
+      lang: java
+      version: "2.0.5.RELEASE"
+    spring-boot-starter-web:
+      lang: java
+      version: "2.0.5.RELEASE"
+  com.h2database:
+    h2:
+      lang: java
+      version: "1.4.197"
+  org.postgresql:
+    postgresql:
+      lang: java
+      version: "42.2.5"

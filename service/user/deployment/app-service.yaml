@@ -7,6 +7,11 @@ spec:
     app: user
     tier: backend
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 80
     targetPort: 8080
+  - name: mgmt
+    protocol: TCP
+    port: 280
+    targetPort: 9090

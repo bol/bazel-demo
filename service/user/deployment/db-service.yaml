@@ -4,7 +4,9 @@ metadata:
   name: user-db
 spec:
   ports:
-  - port: 5435
+  - name: pgsql
+    port: 5432
+    targetPort: 5432
   selector:
     app: user-db
   clusterIP: None
