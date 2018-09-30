@@ -26,6 +26,7 @@ _pkg_boot_jar = rule(
     executable = True,
 )
 
+# Creates a spring boot executable jar from a java library
 def boot_jar(name, target, include_launch_script = True, **kwargs):
     _pkg_boot_jar(
         name = name,
@@ -36,11 +37,14 @@ def boot_jar(name, target, include_launch_script = True, **kwargs):
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_image")
 
+# Convenience function that creates a runable container image
+# from a library with a spring boot application inside
 def boot_image(
         name,
         target,
         base = "@java_base//image",
         stamp = True,
+        visibility = ["//visibility:public"],
         **kwargs):
     jar_name = name + ".jar"
 
@@ -56,6 +60,7 @@ def boot_image(
         cmd = ["/" + jar_name],
         files = [jar_name],
         stamp = stamp,
+        visibility = visibility,
     )
 
 spring_boot_starter_web_deps = [

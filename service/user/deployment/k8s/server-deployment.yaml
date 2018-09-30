@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: app:dev
+        image: user_server:dev
         ports:
         - containerPort: 80
