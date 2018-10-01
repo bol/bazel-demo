@@ -16,12 +16,12 @@ $ minikube dashboard
 #### Bazel
 Install [bazel](https://docs.bazel.build/versions/master/install.html) and use it to build all code in the repository, this can be a little slow the first time but should be rapid after that.
 ```bash
-$ bazel build //...:all
+$ bazel build //...
 ```
 
 We can also run all tests to verify that everything works.
 ```bash
-$ bazel test //...:all
+$ bazel test //...
 ```
 
 #### Registry
@@ -41,7 +41,7 @@ $ kubectl port-forward --namespace kube-system $(kubectl get pods -n kube-system
 #### Deployment
 Lets test the setup by deploying the last build version of the user service to our cluster.
 ```bash
-$ bazel run //service/user:deploy.apply
+$ bazel run //service/user/deployment:full.apply
 ```
 
 #### IntelliJ
