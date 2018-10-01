@@ -1,4 +1,4 @@
-# Bourne
+# Bazel demo
 Sample project combining the build system Bazel with a java service written in Spring, deploying to a local Kubernetes cluster.
 
 ### Setup
