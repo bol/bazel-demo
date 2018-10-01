@@ -37,6 +37,12 @@ Note that this command does not exit and must run as long as you want to publish
 $ kubectl port-forward --namespace kube-system $(kubectl get pods -n kube-system -l 'k8s-app=kube-registry,version=v0' -o name) 5000:5000
 ```
 
+The registry is now set up within kubernetes and shared with your local machine which is good enough for Linux. If you're on Mac you still need to forward it from your local machine to your Linux VM in which you run docker.
+```bash
+$ ssh -i ~/.docker/machine/machines/default/id_rsa \
+-R 5000:localhost:5000 \
+docker@$(docker-machine ip)
+```
 
 #### Deployment
 Lets test the setup by deploying the last build version of the user service to our cluster.
