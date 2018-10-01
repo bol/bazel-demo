@@ -37,11 +37,11 @@ Note that this command does not exit and must run as long as you want to publish
 $ kubectl port-forward --namespace kube-system $(kubectl get pods -n kube-system -l 'k8s-app=kube-registry,version=v0' -o name) 5000:5000
 ```
 
-The registry is now set up within kubernetes and shared with your local machine which is good enough for Linux. If you're on Mac you still need to forward it from your local machine to your Linux VM in which you run docker.
+The registry is now set up within kubernetes and shared with your local machine which is good enough for Linux. If you're on Mac you still need to forward it from your local machine to your Linux VM in which you run docker. We can do that by running socat in a container.
 ```bash
-$ ssh -i ~/.docker/machine/machines/default/id_rsa \
--R 5000:localhost:5000 \
-docker@$(docker-machine ip)
+$ docker run --rm --privileged \
+    --pid=host gsunner/ubuntu-socat \
+    nsenter -t 1 -u -n -i socat TCP-LISTEN:5000,fork TCP:docker.for.mac.host.internal:5000
 ```
 
 #### Deployment
