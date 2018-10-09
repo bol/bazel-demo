@@ -30,36 +30,36 @@ k8s_objects(
 k8s_deploy(
     name = "_k8s_service_server",
     kind = "Service",
-    template = ":k8s/server-service.yaml",
+    template = ":server-service.yaml",
 )
 
 k8s_deploy(
     name = "_k8s_deployment_server",
-    images = {"user_server:dev": "//service/user/server:server_image"},
+    images = {"user_server:dev": "//service/user:server_image"},
     kind = "Deployment",
-    template = ":k8s/server-deployment.yaml",
+    template = ":server-deployment.yaml",
 )
 
 k8s_deploy(
     name = "_k8s_service_db",
     kind = "Service",
-    template = ":k8s/db-service.yaml",
+    template = ":db-service.yaml",
 )
 
 k8s_deploy(
     name = "_k8s_deployment_db",
     kind = "Deployment",
-    template = ":k8s/db-deployment.yaml",
+    template = ":db-deployment.yaml",
 )
 
 k8s_deploy(
     name = "_k8s_persistantvolume_db",
     kind = "PersistantVolume",
-    template = ":k8s/db-pv.yaml",
+    template = ":db-pv.yaml",
 )
 
 k8s_deploy(
     name = "_k8s_persistantvolumeclaim_db",
     kind = "PersistantVolumeClaim",
-    template = ":k8s/db-pvc.yaml",
+    template = ":db-pvc.yaml",
 )
