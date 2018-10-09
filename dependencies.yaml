@@ -43,3 +43,7 @@ dependencies:
     postgresql:
       lang: java
       version: "42.2.5"
+  org.modelmapper:
+    modelmapper:
+      lang: java
+      version: 2.3.0
