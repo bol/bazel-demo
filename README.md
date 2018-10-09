@@ -47,11 +47,11 @@ $ docker run --rm --privileged \
 #### Deployment
 Lets test the setup by deploying the last build version of the user service to our cluster.
 ```bash
-$ bazel run //service/user/deployment:full.apply
+$ bazel run //deployment/service/user:full.apply
 ```
 
 #### IntelliJ
-There is a rather nice plugin for IntelliJ available that you might want to use. Unfortunately it's not compatible with the latest version of the IDE at the time of writing so I have a pre built version waiting for you in the Intellij folder.
+There is a rather nice plugin for IntelliJ available that you might want to use. Unfortunately it's not compatible with the latest version of the IDE at the time of writing so I have a pre built version waiting for you in the tools/intellij folder.
 If you want to build it yourself, clone the [repository](https://github.com/bazelbuild/intellij) and build it with
 ```bash
 $ bazel build //ijwb:ijwb_bazel_zip --define=ij_product=intellij-ue-2018.2
