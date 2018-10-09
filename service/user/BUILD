@@ -5,7 +5,7 @@ java_library(
     srcs = glob(include = ["src/main/java/**/*.java"]),
     resources = glob(include = ["src/main/resources/*"]),
     runtime_deps = [
-        "@org_postgresql_postgresql//jar",
+        "//3rdparty/jvm/org/postgresql:postgresql",
     ],
     deps = [
         "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_actuator",
@@ -25,7 +25,7 @@ java_test(
     srcs = ["src/test/java/service/user/ApplicationTest.java"],
     test_class = "service.user.ApplicationTest",
     runtime_deps = [
-        "@com_h2database_h2//jar",
+        "//3rdparty/jvm/com/h2database:h2",
     ],
     deps = [
         "server",
