@@ -6,7 +6,10 @@ import javax.persistence.Id;
 
 @Entity
 public class UserEntity {
-    @Id
-    @GeneratedValue
-    private int id;
+
+  @Id
+  @GeneratedValue
+  private int id;
+
+  private String name;
 }

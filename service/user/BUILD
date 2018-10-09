@@ -1,11 +1,4 @@
-load(
-    "//tools/spring-boot:spring-boot.bzl",
-    "boot_image",
-    "spring_boot_starter_actuator_deps",
-    "spring_boot_starter_data_jpa_deps",
-    "spring_boot_starter_test_deps",
-    "spring_boot_starter_web_deps",
-)
+load("//tools/spring-boot:spring-boot.bzl", "boot_image")
 
 java_library(
     name = "server",
@@ -14,9 +7,11 @@ java_library(
     runtime_deps = [
         "@org_postgresql_postgresql//jar",
     ],
-    deps = spring_boot_starter_web_deps +
-           spring_boot_starter_data_jpa_deps +
-           spring_boot_starter_actuator_deps,
+    deps = [
+        "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_actuator",
+        "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_data_jpa",
+        "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_web",
+    ],
 )
 
 boot_image(
@@ -32,6 +27,8 @@ java_test(
     runtime_deps = [
         "@com_h2database_h2//jar",
     ],
-    deps = ["server"] +
-           spring_boot_starter_test_deps,
+    deps = [
+        "server",
+        "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_test",
+    ],
 )
