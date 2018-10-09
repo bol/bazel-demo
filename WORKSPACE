@@ -1,4 +1,4 @@
-workspace(name = "bourne")
+workspace(name = "bazel_demo")
 
 load("//3rdparty:workspace.bzl", "maven_dependencies")
 
