@@ -28,7 +28,7 @@ $ bazel test //...
 Before we can deploy anything there has to be a repository which the build system can push and from where the cluster can pull images.
 We'll set up a simple one inside minikube.
 ```bash
-$ kubectl create -f deployment/dev/kube-registry.yaml
+$ kubectl create -f deployment/infrastructure/registry/kube-registry.yaml
 ```
 
 Then forward the port to localhost so that your local system can reach it.
