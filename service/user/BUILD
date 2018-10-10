@@ -8,7 +8,7 @@ java_library(
         "//3rdparty/jvm/org/postgresql",
     ],
     deps = [
-        "//3rdparty/jvm/io/opentracing/contrib:opentracing_spring_cloud_jdbc_starter",
+        "//3rdparty/jvm/io/micrometer:micrometer_registry_prometheus",
         "//3rdparty/jvm/io/opentracing/contrib:opentracing_spring_jaeger_starter",
         "//3rdparty/jvm/io/opentracing/contrib:opentracing_spring_web_starter",
         "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_actuator",

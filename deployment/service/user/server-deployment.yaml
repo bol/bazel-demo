@@ -13,9 +13,33 @@ spec:
       labels:
         app: user
         tier: backend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/actuator/prometheus"
     spec:
       containers:
       - name: user-service
         image: user_server:dev
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 45
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /actuator/health
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5

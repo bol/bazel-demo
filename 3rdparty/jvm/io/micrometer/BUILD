@@ -11,3 +11,17 @@ java_library(
 )
 
 
+
+java_library(
+    name = "micrometer_registry_prometheus",
+    exports = [
+        "//3rdparty/jvm/io/prometheus:simpleclient_common",
+        "//external:jar/io/micrometer/micrometer_registry_prometheus",
+        ":micrometer_core"
+    ],
+    visibility = [
+        "//visibility:public"
+    ]
+)
+
+

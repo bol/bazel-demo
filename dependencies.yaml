@@ -60,3 +60,7 @@ dependencies:
     opentracing-spring-cloud-jdbc-starter:
       lang: java
       version: "0.2.0"
+  io.micrometer:
+    micrometer-registry-prometheus:
+      lang: java
+      version: "1.0.6"
