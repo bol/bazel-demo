@@ -50,3 +50,13 @@ dependencies:
     modelmapper:
       lang: java
       version: 2.3.0
+  io.opentracing.contrib:
+    opentracing-spring-web-starter:
+      lang: java
+      version: "0.3.4"
+    opentracing-spring-jaeger-starter:
+      lang: java
+      version: "0.2.1"
+    opentracing-spring-cloud-jdbc-starter:
+      lang: java
+      version: "0.2.0"
