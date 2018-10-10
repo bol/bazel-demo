@@ -16,7 +16,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         jdbc:
@@ -33,4 +33,3 @@ opentracing:
 logging:
   level:
     io.jaegertracing.internal.reporters.LoggingReporter: WARN
-
