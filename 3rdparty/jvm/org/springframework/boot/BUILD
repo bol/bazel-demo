@@ -138,6 +138,22 @@ java_library(
 
 
 java_library(
+    name = "spring_boot_starter_data_rest",
+    exports = [
+        "//3rdparty/jvm/org/springframework/data:spring_data_rest_webmvc",
+        "//external:jar/org/springframework/boot/spring_boot_starter_data_rest",
+        ":spring_boot_starter",
+        ":spring_boot_starter_json",
+        ":spring_boot_starter_web"
+    ],
+    visibility = [
+        "//visibility:public"
+    ]
+)
+
+
+
+java_library(
     name = "spring_boot_starter_jdbc",
     exports = [
         "//3rdparty/jvm/com/zaxxer:HikariCP",

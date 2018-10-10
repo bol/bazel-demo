@@ -5,11 +5,12 @@ java_library(
     srcs = glob(include = ["src/main/java/**/*.java"]),
     resources = glob(include = ["src/main/resources/*"]),
     runtime_deps = [
-        "//3rdparty/jvm/org/postgresql:postgresql",
+        "//3rdparty/jvm/org/postgresql",
     ],
     deps = [
         "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_actuator",
         "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_data_jpa",
+        "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_data_rest",
         "//3rdparty/jvm/org/springframework/boot:spring_boot_starter_web",
     ],
 )
