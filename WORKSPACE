@@ -48,4 +48,5 @@ k8s_defaults(
     #   kubectl config current-context
     cluster = "minikube",
     image_chroot = "localhost:5000/",
+    namespace = "demo",
 )

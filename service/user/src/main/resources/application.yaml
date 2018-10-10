@@ -14,6 +14,6 @@ spring:
       ddl-auto: create
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://user-db.default.svc.cluster.local:5432/userdb
+    url: jdbc:postgresql://user-db.demo.svc.cluster.local:5432/userdb
     username: user_application
     password: password
