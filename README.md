@@ -7,7 +7,10 @@ To start with, this project assumes that you are on a system where java means ja
 #### Minikube
 Install [minikube](https://github.com/kubernetes/minikube) and start it up.
 ```bash
-$ minikube start --kubernetes-version=v1.10.8
+$ minikube start \
+  --kubernetes-version=v1.10.8 \
+  --memory=8192 \
+  --cpus=4
 ```
 Feel free to launch the kubernetes dashboard by now and inspect your handiwork in the cluster.
 ```bash
