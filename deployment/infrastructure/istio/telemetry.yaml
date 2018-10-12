@@ -1,0 +1,67 @@
+# Configuration for a metric measuring bytes sent from a server
+# to a client
+apiVersion: "config.istio.io/v1alpha2"
+kind: metric
+metadata:
+  name: pgsentbytes
+  namespace: demo
+spec:
+  value: connection.sent.bytes | 0 # uses a TCP-specific attribute
+  dimensions:
+    source_service: source.workload.name | "unknown"
+    source_version: source.labels["version"] | "unknown"
+    destination_version: destination.labels["version"] | "unknown"
+  monitoredResourceType: '"UNSPECIFIED"'
+---
+# Configuration for a metric measuring bytes sent from a client
+# to a server
+apiVersion: "config.istio.io/v1alpha2"
+kind: metric
+metadata:
+  name: pgreceivedbytes
+  namespace: demo
+spec:
+  value: connection.received.bytes | 0 # uses a TCP-specific attribute
+  dimensions:
+    source_service: source.workload.name | "unknown"
+    source_version: source.labels["version"] | "unknown"
+    destination_version: destination.labels["version"] | "unknown"
+  monitoredResourceType: '"UNSPECIFIED"'
+---
+# Configuration for a Prometheus handler
+apiVersion: "config.istio.io/v1alpha2"
+kind: prometheus
+metadata:
+  name: pghandler
+  namespace: demo
+spec:
+  metrics:
+  - name: user_pgsent_bytes # Prometheus metric name
+    instance_name: pgsentbytes.metric.demo # Mixer instance name (fully-qualified)
+    kind: COUNTER
+    label_names:
+    - source_service
+    - source_version
+    - destination_version
+  - name: user_pgreceived_bytes # Prometheus metric name
+    instance_name: pgreceivedbytes.metric.demo # Mixer instance name (fully-qualified)
+    kind: COUNTER
+    label_names:
+    - source_service
+    - source_version
+    - destination_version
+---
+# Rule to send metric instances to a Prometheus handler
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: pgprom
+  namespace: demo
+spec:
+  match: context.protocol == "tcp"
+    && destination.service == "user-db.demo.svc.cluster.local"
+  actions:
+  - handler: pghandler.prometheus
+    instances:
+    - pgreceivedbytes.metric
+    - pgsentbytes.metric

@@ -5,7 +5,9 @@ k8s_objects(
     name = "full",
     objects = [
         ":custom_resource_definitions",
-        ":istio_with_authentication",
+        ":demo_with_authentication",
+        ":logging",
+        ":log_rule",
     ],
 )
 
@@ -17,8 +19,22 @@ k8s_object(
 )
 
 k8s_object(
-    name = "istio_with_authentication",
+    name = "demo_with_authentication",
     cluster = "minikube",
     namespace = "istio-system",
     template = ":istio-demo-auth.yaml",
+)
+
+k8s_object(
+    name = "logging",
+    cluster = "minikube",
+    namespace = "logging",
+    template = ":logging-stack.yaml",
+)
+
+k8s_object(
+    name = "log_rule",
+    cluster = "minikube",
+    namespace = "istio-system",
+    template = ":fluentd-istio.yaml",
 )
